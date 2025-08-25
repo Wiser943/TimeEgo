@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
+    <title>Account</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <button id="menu-button" class="menu-button" aria-label="Toggle navigation menu">
+            <svg class="h-6 w-6" fill="none" width="30px" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        
+        <div id="mobile-menu" class="mobile-menu-overlay">
+            <div class="mobile-menu-content">
+                <div class="footer-links-grid">
+                    <br /><br /><br /><br />
+                    <section>
+                        <h2>Quick Links</h2>
+                        <ul>
+                            <li onclick="showPage('plan-display')">Explore plans</li>
+                            <li onclick="showPage('signup-page')">Signup</li>
+                            <li onclick="showPage('login-page')">Login</li>
+                            <li onclick="showPage('code-vendors')">Pricing & Coupon codes</li>
+                            <li onclick="showPage('privacy-policy-page')">Privacy policy</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h2>Support</h2>
+                        <ul>
+                            <li><a href="#support-page">Help and support</a></li>
+                            <li><a href="#support-page">FAQs</a></li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h2>Others</h2>
+                        <ul>
+                            <li onclick="switchTheme()">Switch Theme</li>
+                            <li class="social-icons">
+                                <a href="https://www.facebook.com/TimeEgo.co" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://chat.whatsapp.com/EmfLOFVvTpmIULkQAQDv5P?mode=ac_t" target="_blank" aria-label="Twitter"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://www.instagram.com/timego.co?igsh=NHh0b3FzaG9ldHVt" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://t.me/+9L1U_sgaTNAwNTBk" target="_blank" aria-label="LinkedIn"><i class="fab fa-telegram"></i></a>
+                            </li>
+                            
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+        
+        
+        <section class="page active"></section>
+        <section id="plan-display" class="page">
+            <br /><br />
+            <div class="smartpulse-bottom-logo" style="margin:0">
+                <div class="header-logo">
+                    <img width="35" height="35" src="/img/logo.png" alt="logo" />
+                    <!---
+                    <svg class="header-logo-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>-->
+                    <span class="header-logo-text">TimeEgo</span>
+                </div>
+            </div><br />
+            <h1 style="font-size: 2em;">Get started with a Plan</h1>
+            <h3>Choose any plan to continue</h3>
+            <div class="plan-cards">
+                <br />
+                <div class="spinner"></div><br>
+            </div>
+            <p class="premium-recommendation">Recommended: Classic Plan</p><br />
+        </section>
+        
+        
+        <section id="forgot-password-page" class="page">
+            <form class="signup-form" id="resetForm">
+                <div class="welcome">
+                    <span>🔓</span><br />
+                    <h4>Welcome Back!</h4>
+                    <h2>Reset Account Password</h2>
+                </div>
+                <div class="form-group">
+                    <label for="reset-email">Email: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>✉️</span>
+                        <input type="email" id="resetEmail" name="reset-email" placeholder="Enter your Email" required>
+                    </div>
+                    <p class="error-message">A password Reset link will be sent to the Email address provided.</p>
+                </div>
+                
+                <button class="action" type="submit">Send Reset link</button>
+            </form>
+            <p class="login-hint" style="margin:10px auto">Remember password? <span onclick="showPage('login-page')" style="color:var(--accent-color);">Login now</span></p>
+        </section>
+        
+        <section id="login-page" class="page">
+            <form class="signup-form" id="loginForm">
+                <div class="welcome">
+                    <span>🔐</span><br />
+                    <h4>Welcome Back!</h4>
+                    <h2>Login Your Account</h2>
+                </div>
+                <div class="form-group">
+                    <label for="login-email">Email: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>✉️</span>
+                        <input type="email" id="loginEmail" name="login-email" placeholder="Enter your Email" required>
+                    </div>
+                    <p id="loginEmailError" class="error-message"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>🔒</span>
+                        <input type="password" id="loginPassword" name="login-password" placeholder="Enter Password" required>
+                        <span onclick="togglePassword(loginPassword)">👁️</span>
+                    </div>
+                    <p id="loginPasswordError" class="error-message"></p>
+                </div>
+                
+                <div style="display:flex; justify-content: space-between;width:100%">
+                    <p class="form-group checkbox-group">
+                        <input type="checkbox" name="recall" id="recall">
+                        <label for="recall">Remember me</label>
+                    </p>
+                    <p onclick="showPage('forgot-password-page')" style="color:var(--accent-color);">Retrieve password</p>
+                </div>
+                
+                <button class="action" type="submit">Sign in</button>
+                <div id="loginFormMessage" class="message-box"></div>
+                <p class="login-hint" style="margin:10px auto">Don't have an account? <span onclick="showPage('signup-page')" style="color:var(--accent-color);">Create</span></p>
+            </form>
+        </section>
+        
+        <section id="upgrade-page" class="page">
+            <form id="upgradeForm" class="signup-form">
+                <div class="welcome">
+                    <span>⚡</span>
+                    <h2>Upgade Account</h2>
+                </div>
+                <p class="login-hint">* You are upgrading</p><br />
+                <div class="form-group">
+                    <label for="upgrade-email">Upgrade for: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        
+                        <input type="text" id="upgrade-email" name="username" placeholder="Enter your Email" disabled>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="upgrade-code">Upgrade code: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>📊</span>
+                        <input type="text" id="upgrade-code" name="username" placeholder="Enter your upgrade code" required>
+                    </div>
+                    <p id="upgradeCodeError" class="error-message"></p>
+                </div>
+                <button type="submit" id="submit-upgrade">Upgrade</button><br /><br />
+                <a href="#code-vendors">Get upgrade code</a>
+            </form>
+        </section>
+        <section id="signup-page" class="page">
+            <form id="signupForm" class="signup-form">
+                <div class="welcome">
+                    <span>🔑</span>
+                    <h2>Create An Account</h2>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>👤</span>
+                        <input type="text" id="username" name="username" placeholder="Enter your Name" required>
+                    </div>
+                    <p id="usernameError" class="error-message"></p>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>✉️</span>
+                        <input type="email" id="email" name="signup-email" placeholder="Enter your Email" required>
+                    </div>
+                    <p id="emailError" class="error-message"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>🔒</span>
+                        <input type="password" id="password" name="signup-password" placeholder="Enter Password" required>
+                        <span onclick="togglePassword(password)">👁️</span>
+                    </div>
+                    <p id="passwordError" class="error-message"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>🔒</span>
+                        <input type="password" id="confirmPassword" name="signup-confirm-password" placeholder="Confirm Password" required>
+                        <span onclick="togglePassword(confirmPassword)">👁️</span>
+                    </div>
+                    <p id="confirmPasswordError" class="error-message"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="">Select plan: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>📊</span>
+                        <p id="selected-plan-info" onclick="showPage('plan-display')">Select Plan...</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activationCode">Activation Code: <span class="mandatory-input">*</span></label>
+                    <div class="input-container">
+                        <span>🗝️</span>
+                        <input type="text" id="activationCode" name="activationCode" placeholder="Enter Activation Code" required>
+                    </div>
+                    <span class="error-message" id="activationCodeError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="referralCode">Referral Id:</label>
+                    <div class="input-container"><span>👨‍👦</span>
+                        <input type="text" id="referralCode" name="referralCode" placeholder="Enter Invite code (Optional)">
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="#privacy-policy-page">Privacy terms and Conditions</a></label>
+                    <span class="error-message" id="termsError"></span>
+                </div>
+                
+                <button type="submit" id="submit-signup">Sign Up</button>
+                <div id="formMessage" class="message-box"></div>
+                <p class="login-hint" style="margin:10px auto">Had an account? <span onclick="showPage('login-page')" style="color:var(--accent-color);">Login here</span></p>
+            </form>
+        </section>
+        
+        
+        
+        <section id="welcome-page" class="page">
+            <br />
+            <div class="smartpulse-bottom-logo" style="margin: 5px 0;">
+                <div class="header-logo">
+                    <img width="30" height="30" src="/img/logo.png" alt="logo" />
+                    <span class="header-logo-text">TimeEgo</span>
+                </div>
+            </div>
+            <h1>Account Action</h1>
+            <div class="user-details">
+                <p class="welcome-title">Welcome, <b id="display-username"></b>!</p>
+                <p>Your Plan: <span id="display-acctPlan"></span></p>
+                <p>Your ID: <span id="display-userid"></span></p>
+            </div>
+            
+            <div class="dashboard-actions">
+                <button id="upgrade-plan-btn" class="action-button">Upgrade plan</button>
+                <button onclick="window.location.href='/main/home.html'" class="action-button">Dashboard</button>
+                <button id="logout-btn" class="action-button delete-button">Logout</button>
+                <button id="delete-account-btn" class="action-button delete-button">Delete Account</button>
+            </div>
+            <br />
+        </section>
+        
+        <section id="admin-contact-page" class="page" style="width:90%;margin:0 auto">
+            <br /><br /><br />
+            
+            <div class="smartpulse-bottom-logo">
+                <div class="header-logo">
+                    <img width="35" height="35" src="/img/logo.png" alt="logo" />
+                    <span class="header-logo-text">TimeEgo</span>
+                </div>
+            </div>
+            <h1 class="contact-admin-title">Account Suspended</h1>
+            <p class="suspension-message">Your actions didn't follow our system's code of conduct.</p>
+            <p class="suspension-message">Please contact your administrator for assistance.</p>
+            <p class="suspension-countdown">You can try again in: <span id="countdown-timer"></span></p>
+            <button class="action-button" id="request-review" disabled>Request Review</button>
+            
+            <div class="footer-links-grid">
+                <section>
+                    <h2>Support</h2>
+                    <ul>
+                        <li><a href="#support-page">FAQs</a></li>
+                        <li><a href="#support-page">Help and Support</a></li>
+                    </ul>
+                </section>
+            </div>
+        </section>
+        
+        <section id="code-vendors" class="page">
+            <br /><br />
+            <div class="smartpulse-bottom-logo" style="margin: 5px 0;">
+                <div class="header-logo"> <img width="35" height="35" src="/img/logo.png" alt="logo" />
+                    <span class="header-logo-text">TimeEgo</span>
+                </div>
+            </div>
+            
+            <main class="main-content">
+                <section class="section-title">
+                    <h2>Available Code Vendors</h2>
+                    <p>Chat any of the following vendors for your activation code</p>
+                </section>
+                
+                <section class="filter-buttons">
+                    <button class="filter-button active">Nigeria</button>
+                    <button class="filter-button" onclick="showAlert('Coupon code vendors for GHANA Coming soon')">Ghana</button>
+                    <button class="filter-button" onclick="showAlert('Coupon code for CAMEROON Coming soon')">Cameroon</button>
+                </section>
+                
+                <section class="vendor-cards-grid"><br />
+                    <div class="spinner"></div>
+                </section>
+            </main>
+        </section>
+        
+        <section class="page" id="support-page">
+            <br /><br />
+            <div class="smartpulse-bottom-logo" style="margin: 5px 0;">
+                <div class="header-logo"> <img width="35" height="35" src="/img/logo.png" alt="logo" />
+                    <span class="header-logo-text">TimeEgo</span>
+                </div>
+            </div>
+            <section class="section-title">
+                <h2>Support Forum </h2>
+                <p>We're here to help! Find our contact channels <br /> and answers to common questions below</p>
+            </section>
+            <div class="main-content faq">
+                <!-- Group Contact Links Section -->
+                <section class="section-title">
+                    <h4>Group Contact Links</h4>
+                </section>
+                <div id="contactLinksContainer" class="contact-links-grid">
+                    <!-- Contact links will be dynamically loaded here -->
+                    <p id="noContactLinksMessage" class="hidden-message">No contact links available.</p>
+                </div>
+                <br /><br />
+                <!-- Frequently Asked Questions Section -->
+                <section class="section-title">
+                    <h4>Frequently Asked Questions</h4>
+                </section>
+                <div id="faqContainer" class="faq-container">
+                    <!-- FAQs will be dynamically loaded here -->
+                    <p id="noFaqMessage" class="hidden-message">No frequently asked questions available.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="privacy-policy-page" class="page">
+            <br /><br />
+            <div class="smartpulse-bottom-logo" style="margin: 5px 0;">
+                <div class="header-logo"> <img width="35" height="35" src="/img/logo.png" alt="logo" />
+                    <span class="header-logo-text">TimeEgo</span>
+                </div>
+            </div>
+            <h1 class="policy-title">Our Commitments</h1>
+            <section class="main-policy">
+                
+                <div class="policy-section ">
+                    <h2>1. About Us</h2>
+                    <p>We are dedicated to providing seamless and secure account management solutions. Our platform is designed to offer a transparent and user-friendly experience for all your plan needs.</p>
+                    
+                    <h2>2. Our Vision</h2>
+                    <p>To be the leading provider of personalized account management systems, empowering users with control and clarity over their digital services. We aim to constantly innovate and expand our offerings to meet the evolving needs of our community.</p>
+                    
+                    <h2>5. Attestations & Disclaimers</h2>
+                    <p>We attest to the accuracy and security of our platform to the best of our abilities. However, the service is provided "as is" without warranties of any kind. We disclaim all liability for any indirect, incidental, or consequential damages arising from the use of our service.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2> 🔐 TimeEgo Privacy Policy</h2>
+                    <p>
+                        <strong>
+                            Effective Date: 1st September 2025 <br /> Last Updated: 26th August 2025</strong>
+                        <br /><br />
+                        TimeEgo (“we,” “our,” or “us”) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
+                        We ensure data security through robust encryption and strict access controls. We do not share your data with third parties without your explicit consent. For a full breakdown, please refer to our detailed Privacy Policy document linked below.
+                    </p>
+                    
+                    <hr /><br />
+                    <details>
+                        <summary><a>Read full Privacy policy...</summary></a>
+                        <h2>1. Information We Collect</h2>
+                        <p>We may collect the following types of information:
+                            <b>Personal Information: Name, email address, device ID, and other identifiers</b> you provide during registration.
+                            Transaction Data: Details of activation code purchases, delivery status, and payment confirmations.
+                            Usage Data: Log files, IP address, browser type, and interactions with the platform.
+                            Vendor Data: Alias, transaction history, and compliance status.
+                        </p>
+                        <h2>2. How We Use Your Information</h2>
+                        <p>
+                            We use your information to:
+                            Facilitate secure transactions and code delivery.
+                            
+                            Provide customer support and resolve disputes.
+                            
+                            Monitor platform integrity and enforce policies.
+                            
+                            Improve platform functionality and user experience.
+                        </p>
+                        <h2>3. Sharing Your Information</h2>
+                        <p>
+                            We do not sell or rent your personal data. We may share information with:
+                            Service providers who assist in platform operations.
+                            Legal authorities when required by law or to protect rights.
+                            Internal teams for auditing and compliance purposes.
+                        </p>
+                        <h2>4. Data Security</h2>
+                        <p>
+                            We implement industry-standard security measures to protect your data. However, no system is 100% secure, and we encourage users to protect their login credentials.
+                        <p>
+                        <h2>5. Your Rights</h2>
+                        <p>
+                            You may:
+                            Access or update your personal information.
+                            Request deletion of your account and associated data.
+                            Opt out of non-essential communications.
+                        </p>
+                        <h2>6. Changes to This Policy</h2>
+                        <p>
+                            We may update this Privacy Policy periodically. Changes will be posted on the platform, and continued use constitutes acceptance.
+                        </p>
+                        <h2> 7. Contact Us</h2>
+                        <p>
+                            For questions or concerns, contact: <br />
+                            Email: support@timeego.com. </p>
+                    </details>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>📜 TimeEgo Terms of Service</h2>
+                    <p>
+                        <strong>
+                            Effective Date: 1st September 2025 <br /> Last Updated: 26th August 2025</strong>
+                        <br /><br />
+                        These Terms of Service (“Terms”) govern your access to and use of the TimeEgo platform. By using TimeEgo, you agree to abide by our Terms and Conditions. These terms govern your use of the platform, including acceptable use, intellectual property rights, and disclaimers. Please review them carefully to understand your rights and obligations.
+                    </p>
+                    
+                    <hr /><br />
+                    <details>
+                        <summary><a>Read full Terms and conditions...</summary></a>
+                        <h2>1. Account Responsibilities</h2>
+                        <p>
+                            You are responsible for maintaining the confidentiality of your account credentials.
+                            You agree not to share your account or impersonate another user.
+                        </p>
+                        <h2>2. Platform Usage</h2>
+                        <p>
+                            You agree to use TimeEgo only for lawful purposes. You must not:
+                            Attempt to hack, disrupt, or misuse the platform.
+                            Engage in fraudulent transactions or impersonation.
+                            Violate any vendor or user policies.
+                        </p>
+                        <h2>3. Transactions & Refunds</h2>
+                        <p>
+                            All activation code purchases are final unless otherwise stated.
+                            Refunds are subject to TimeEgo’s dispute resolution process.
+                            Vendors are responsible for code validity and delivery.
+                        </p>
+                        <h2>4. Suspension & Termination</h2>
+                        <p>
+                            TimeEgo reserves the right to suspend or terminate accounts for violations of these Terms or other platform policies.
+                        </p>
+                        <h2>5. Limitation of Liability</h2>
+                        <p>
+                            TimeEgo is not liable for indirect, incidental, or consequential damages arising from platform use. Our total liability is limited to the amount paid for the disputed transaction.
+                        </p>
+                        <h2>6. Governing Law</h2>
+                        <p>
+                            These Terms are governed by the laws of [Insert Jurisdiction]. Any disputes shall be resolved in the courts of [Insert Jurisdiction].
+                        </p>
+                        <h2>7. Changes to Terms</h2>
+                        <p>
+                            We may update these Terms at any time. Continued use of TimeEgo after changes constitutes acceptance.
+                        </p>
+                    </details>
+                </div>
+            </section>
+        </section>
+        
+        <br />
+        <footer class="footer">
+            <a class="floating-chat-button" href="https://t.me/+YwteGxqVKDY3MzQ0" target="_blank">
+                <svg class="w-6 h-6" fill="currentColor" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.041 0 01-4.173-1.127l-4.155 1.139a1 1 0 01-1.21-.967l.294-4.664A8.915 8.915 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+            
+            <div class="social-icons">
+                <a href="https://www.facebook.com/TimeEgo.co" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://chat.whatsapp.com/EmfLOFVvTpmIULkQAQDv5P?mode=ac_t" target="_blank" aria-label="Twitter"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/timego.co?igsh=NHh0b3FzaG9ldHVt" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/+9L1U_sgaTNAwNTBk" target="_blank" aria-label="LinkedIn"><i class="fab fa-telegram"></i></a>
+            </div>
+            <pre class="footer-copyright">&copy; <script>
+                    document.write(new Date().getFullYear());
+                </script> TimeEgo. All Rights Reserved</pre>
+            <div class="footer-legal-links">
+                <a href="/index.html" target="_parent" id="back-to-dashboard-btn">Home</a>
+                <span>|</span>
+                <a href="#privacy-policy-page">Privacy Conditions</a>
+                <span>|</span>
+                <a href="#code-vendors">Get code</a>
+            </div>
+        </footer>
+        
+    </div>
+    
+    <!-- Loader container -->
+    <div class="loader-container" id="loader-container">
+        <div class="loader"></div>
+        <p>Hang on</p>
+    </div>
+    
+    <div id="custom-alert-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2>Alert</h2>
+            <span class="close-button">&times;</span>
+            <br />
+            <p id="alert-message"></p>
+            <button id="alert-ok-button">Got It</button>
+        </div>
+    </div>
+    
+    <div id="custom-confirm-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2>Alert</h2>
+            <br />
+            <p id="confirm-message"></p>
+            <div class="confirm-buttons">
+                <button id="confirm-yes-button">Yes</button>
+                <button id="confirm-no-button">No</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script src="script-001.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
