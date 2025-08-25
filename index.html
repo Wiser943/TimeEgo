@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Ego - Reclaim Your Time, Live Your Legacy</title>
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Floating Chat Icon */
+        .floating-chat-button {
+            position: fixed;
+            bottom: 1.5rem;
+            /* bottom-6 */
+            right: 1.5rem;
+            /* right-6 */
+            background-color: #7c3aed;
+            /* bg-purple-600 */
+            color: #ffffff;
+            padding: 1rem;
+            /* p-4 */
+            border-radius: 9999px;
+            /* rounded-full */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            /* shadow-lg */
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease-in-out;
+            z-index: 40;
+            /* Lower than mobile menu */
+        }
+        
+        .floating-chat-button:hover {
+            background-color: #6d28d9;
+            /* hover:bg-purple-700 */
+        }
+        
+        
+        .background-container {
+            width: 100vw;
+            height: 100vh;
+            /* Main gradient background */
+            background: linear-gradient(to bottom right, #4a00e0, #6A29A2);
+            /* Blue to purple */
+            position: relative;
+            overflow: hidden;
+            /* Ensures dynamic elements stay within view */
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            /* Makes it a circle */
+            opacity: 0.6;
+            /* Slight transparency */
+            filter: blur(30px);
+            /* Creates the soft, diffused glow */
+            /* Animation properties for subtle movement */
+            animation: float 1s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+        
+        /* Keyframes for the 'float' animation */
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            
+            50% {
+                transform: translate(20px, 15px);
+                /* Moves slightly */
+            }
+            
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+        
+        /* Subtle wavy elements using pseudo-elements */
+        .background-container::before,
+        .background-container::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            /* Very light, transparent white */
+            border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+            /* Irregular, wavy shape */
+            filter: blur(50px);
+            /* Heavily blurred for a soft, atmospheric effect */
+            animation: wave 20s infinite alternate;
+            /* Continuous wave animation */
+            z-index: -10;
+            /* Ensures they are behind the circles if any overlap */
+        }
+        
+        .background-container::before {
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            animation-duration: 25s;
+            /* Slower animation */
+        }
+        
+        .background-container::after {
+            width: 100%;
+            height: 100%;
+            bottom: -10%;
+            right: -10%;
+            animation-duration: 22s;
+            /* Different speed for variety */
+            animation-delay: -5s;
+            /* Starts with a delay */
+        }
+        
+        @keyframes wave {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            
+            100% {
+                transform: translate(30px, 20px) rotate(8deg);
+                /* Moves and rotates slightly */
+            }
+        }
+        
+        /* General Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+            outline-color: transparent !important;
+            transition: .3s all ease !important
+        }
+        
+        :root {
+            --accent-color: #4285f4;
+            --accent-color-rgb: 66, 133, 244;
+            /* Default Google Blue */
+        }
+        
+        html {
+            scroll-behavior: smooth !important;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            /* Lighter background */
+            color: #333;
+            overflow-x: hidden;
+            /* Prevent horizontal scrolling */
+        }
+        
+        
+        /* Header */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+            border-bottom-left-radius: 0.5rem;
+            /* rounded-b-lg */
+            border-bottom-right-radius: 0.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-logo-icon {
+            width: 2rem;
+            /* w-8 */
+            height: 2rem;
+            /* h-8 */
+            margin-right: 0.5rem;
+            /* mr-2 */
+            color: #6b46c1;
+            /* text-purple-700 */
+        }
+        
+        .header-logo-text {
+            font-weight: 700;
+            /* font-bold */
+            font-size: 1.25rem;
+            /* text-xl */
+            color: #1a202c;
+            /* text-gray-800 */
+        }
+        
+        .menu-button {
+            display: block;
+            /* md:hidden */
+            padding: 0.5rem;
+            /* p-2 */
+            color: #4a5568;
+            /* text-gray-700 */
+            border-radius: 0.375rem;
+            /* rounded-md */
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            display: none;
+            /* hidden by default */
+            position: fixed;
+            inset: 0;
+            /* top:0, right:0, bottom:0, left:0 */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* bg-black bg-opacity-50 */
+            z-index: 50;
+        }
+        
+        .mobile-menu-content {
+            background-color: #ffffff;
+            width: 75%;
+            /* w-3/4 */
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 1.5rem;
+            /* p-6 */
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+            /* shadow-lg */
+            border-top-left-radius: 0.5rem;
+            /* rounded-l-lg */
+            border-bottom-left-radius: 0.5rem;
+        }
+        
+        .close-menu-button {
+            position: absolute;
+            top: 1rem;
+            /* top-4 */
+            right: 1rem;
+            /* right-4 */
+            color: #4a5568;
+            /* text-gray-700 */
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        
+        /* Base Container for consistent content width */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            /* Wider for landing page content */
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        h1,
+        h2,
+        h3 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+        }
+        
+        h2 {
+            font-size: 2.2em;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+        }
+        
+        
+        p {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Buttons (re-used and extended for landing page) */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .primary-btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            width: 80%;
+            font-size: 14pt !important;
+            margin: 0 auto;
+            
+        }
+        
+        .primary-btn:hover {
+            background-color: #357ae8;
+        }
+        
+        .secondary-btn {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        
+        .secondary-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        .danger-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        
+        .danger-btn:hover {
+            background-color: #c82333;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25d366;
+            color: #fff;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #1ea74d;
+        }
+        
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 15px;
+            margin-top: 0;
+            /* Override default margin for header button */
+        }
+        
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        /* Utility for margin-top */
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        /* Loader (re-used) */
+        #loaderContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid var(--accent-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Modals (Alert and Confirm, re-used) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-content p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+        
+        .modal .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .modal .close-button:hover,
+        .modal .close-button:focus {
+            color: #333;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        /* --- LANDING PAGE SPECIFIC STYLES (landing.html) --- */
+        
+        .landing-page-body {
+            align-items: flex-start;
+            /* Ensure content starts from top */
+        }
+        
+        
+        
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+        
+        .main-nav ul li a {
+            color: #555;
+            font-weight: 500;
+            font-size: 1.05em;
+            transition: color 0.3s ease;
+        }
+        
+        .main-nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav .nav-link-login {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .menu-toggle {
+            display: none;
+            /* Hidden on desktop */
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            /*background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/img/image-2.jpg') no-repeat center center/cover;*/
+            color: #fff;
+            text-align: center;
+            padding: 120px 20px;
+            /* More vertical padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Make it tall */
+            box-shadow: inset 0 -10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-section h1 {
+            color: #fff;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            max-width: 900px;
+        }
+        
+        .hero-section .tagline {
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            max-width: 800px;
+            opacity: 0.9;
+        }
+        
+        .hero-cta {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            /* Pill shape */
+            background-color: #fff;
+            /* White button on dark background */
+            color: var(--accent-color);
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-cta:hover {
+            background-color: #eee;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .about-section h2 {
+            margin-bottom: 30px;
+        }
+        
+        .about-section p {
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+            font-size: 1.1em;
+            color: #666;
+        }
+        
+        /* Features Section */
+        .features-section {
+            background-color: #f9f9f9;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .features-section h2 {
+            margin-bottom: 50px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-item {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3.5em;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-item h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .feature-item p {
+            font-size: 1em;
+            color: #777;
+        }
+        
+        /* Call to Action Section */
+        .cta-section {
+            background: var(--accent-color);
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/img/happy.png') no-repeat center center/cover;
+            width: 100%;
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+            height: max-content;
+            border-radius: 8px;
+            margin-bottom: .1rem;
+        }
+        
+        .cta-section h2 {
+            color: var(--accent-color);
+            font-size: 2.5em;
+            margin-bottom: 25px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-btn {
+            background-color: #fff;
+            color: var(--accent-color);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn:hover {
+            background-color: #eee;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: #222;
+            color: #f4f4f4;
+            padding: 60px 0 20px;
+            font-size: 0.95em;
+        }
+        
+        footer .wrapper {
+            position: fixed;
+            bottom: 50px;
+            right: -5000px;
+         /*   max-width: 70%;
+            width: 100%;*/
+                        width: calc(100% / 2 + 80px);
+            background: inherit;
+            border-radius: 8px;
+            padding: 15px 25px 22px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer .wrapper.show {
+            right: 20px;
+            z-index: 20
+        }
+        
+        footer .wrapper header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        footer .wrapper header h3 {
+            color: #4070f4;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        footer .wrapper .data {
+            margin-top: 8px;
+        }
+        
+        footer .wrapper .data p {
+            color: var(--color-placeholder);
+            font-size: 16px;
+        }
+        
+        footer .data p a:hover {
+            text-decoration: underline;
+        }
+        
+        footer .wrapper .buttons {
+            margin-top: 16px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        footer .buttons .cookie-button {
+            border: none;
+            color: #fff;
+            padding: 8px 0;
+            border-radius: 4px;
+            background: #4070f4;
+            cursor: pointer;
+            width: calc(100% / 2 - 10px);
+            transition: all 0.2s ease;
+        }
+        
+        footer .buttons #acceptBtn:hover {
+            background-color: #034bf1;
+        }
+        
+        footer .buttons #declineBtn {
+            border: 2px solid #4070f4;
+            background-color: #fff;
+            color: #4070f4;
+        }
+        
+        footer .buttons #declineBtn:hover {
+            background-color: #4070f4;
+            color: #fff;
+        }
+        
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        
+        .footer-section p,
+        .footer-section ul {
+            color: #ccc;
+            margin-bottom: 10px;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            color: #fff;
+            font-size: 1.5em;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+        
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 900px) {
+            .hero-section h1 {
+                font-size: 2.8em;
+            }
+            
+            .hero-section .tagline {
+                font-size: 1.2em;
+            }
+            
+            .cta-section h2 {
+                font-size: 2em;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+            
+            .main-nav {
+                display: none;
+                /* Hide nav by default on small screens */
+                flex-direction: column;
+                width: 100%;
+                background-color: #fff;
+                position: absolute;
+                top: 60px;
+                /* Below header */
+                left: 0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+                transition: all 0.3s ease-out;
+                transform: translateY(-100%);
+                /* Start off-screen */
+                opacity: 0;
+                pointer-events: none;
+                /* Disable interaction when hidden */
+            }
+            
+            .main-nav.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .main-nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .main-nav ul li {
+                margin: 10px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .main-nav ul li a {
+                display: block;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .main-nav ul li:last-child a {
+                border-bottom: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+                /* Show hamburger icon */
+            }
+            
+            .hero-section {
+                padding: 80px 15px;
+            }
+            
+            .hero-section h1 {
+                font-size: 2em;
+            }
+            
+            .hero-section .tagline {
+                font-size: 1.1em;
+            }
+            
+            .hero-cta {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+            
+            .animated-btn {
+                padding: 15px !important;
+                animation: shine 2s infinite alternate !important;
+            }
+            
+            
+            @keyframes shine {
+                0% {
+                    transform: translateY(40%);
+                }
+                
+                100% {
+                    transform: translateY(-40%);
+                }
+            }
+            
+            .about-section,
+            .features-section,
+            .cta-section {
+                padding: 60px 0;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                /* Single column layout */
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section ul {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .social-icons {
+                justify-content: center;
+                display: flex;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 15px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body class="landing-page-body">
+    <header class="header">
+        <div class="header-logo">
+            <img width="35" height="35" src="/img/logo.png" alt="logo" />
+            <!---
+            <svg class="header-logo-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>--->
+            <span class="header-logo-text">TimeEgo</span>
+        </div>
+        <button id="menu-button" class="menu-button menu-toggle" aria-label="Toggle navigation menu">
+            <svg class="h-6 w-6" fill="none" width="30px" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <nav class="desktop-nav main-nav">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/accounts/account.html?#login-page" class="nav-link-login">Login</a></li>
+                <li><a href="/accounts/account.html?#signup-page" class="btn primary-btn btn-small">Get Started</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div </div>
+        <main>
+            <section id="hero" class="hero-section background-container">
+                <div class="hero-content container" style="z-index: 10">
+                    <h1>Beyond the ticking clock, your true potential awaits.</h1>
+                    <p class="tagline">Time Ego empowers you to invest in what truly matters: your future, your peace, your legacy.</p>
+                    <a href="/accounts/account.html?#signup-page" class="btn primary-btn hero-cta animated-btn">Reclaim Your Time Now</a>
+                </div>
+            </section>
+            <section id="about" class="about-section container">
+                <h2>The Essence of Time Ego</h2>
+                <p>In a world that constantly demands more, we believe true wealth isn't just about financial gains, but about the freedom to live meaningfully. Time Ego is built on the philosophy that by making smart, passive investments, you can free up your most precious resource: your time.</p>
+                <p>We're not just an investment platform; we're a movement towards intentional living. We provide the tools, the insights, and the community to help you build a financial foundation that supports your dreams, allowing you to focus on growth, passion, and personal fulfillment, without the constant grind.</p>
+            </section>
+            
+            <section id="features" class="features-section">
+                <div class="container">
+                    <h2>How Time Ego Transforms Your Future</h2>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <h3>Passive Income Streams</h3>
+                            <p>Our expertly managed investment plans generate consistent returns, allowing your money to work for you, not the other way around.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <h3>Transparent Growth</h3>
+                            <p>Track your investments with clear, real-time analytics. Understand your progress and see your legacy take shape, every day.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h3>Secure & Reliable</h3>
+                            <p>Your security is our utmost priority. We employ industry-leading measures to protect your data and investments, ensuring peace of mind.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-clock feature-icon"></i>
+                            <h3>Unlock Your Time</h3>
+                            <p>With financial stability, dedicate more hours to what truly matters: family, passions, personal growth, and creating lasting impact.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="cta-section">
+                <div class="container">
+                    <h2>Ready to redefine your relationship with time and money?</h2>
+                    <p>Join a community of forward-thinkers who are building financial freedom, one intentional investment at a time.</p>
+                    <a href="/accounts/account.html?#login-page" class="btn primary-btn cta-btn animated-btn">Begin Your Journey Today</a>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="main-footer">
+            <a class="floating-chat-button animated-btn" href="https://t.me/+9L1U_sgaTNAwNTBk" target="_blank">
+                <svg class="w-6 h-6" fill="currentColor" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.041 0 01-4.173-1.127l-4.155 1.139a1 1 0 01-1.21-.967l.294-4.664A8.915 8.915 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+            
+            <div class="wrapper">
+                <header>
+                    <img width="20" height="20" src="/img/logo.png" alt="logo" />
+                    <h3>Cookies Consent 🍪</h3>
+                </header>
+                <hr />
+                <div class="data">
+                    <p>TimeEgo uses cookies to help you have a superior and more relevant browsing experience on our website. <a href="/accounts/account.html?tab=privacy-policy-page"> Read more...</a></p>
+                </div>
+                
+                <div class="buttons">
+                    <button class="cookie-button" id="acceptBtn">Accept</button>
+                    <button class="cookie-button" id="declineBtn">Decline</button>
+                </div>
+            </div>
+            
+            <div class="footer-content container">
+                <div class="footer-section about-us">
+                    <img width="35" height="35" src="/img/logo.png" alt="logo" /><br />
+                    <h3>About Time Ego</h3>
+                    <p>Empowering individuals to achieve financial freedom and reclaim their most valuable asset: time. Invest wisely, live fully.</p>
+                </div>
+                <div class="footer-section quick-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#features">Our Approach</a>
+                        <li><a href="/accounts/login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact-info" id="contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Lagos State, Nigeria</p>
+                    <p><i class="fas fa-envelope"></i> support@timeego.com</p>
+                    <p><i class="fas fa-phone"></i> +234 817 9743 799</p>
+                </div>
+                <div class="footer-section social-media">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <pre class="footer-copyright">&copy; <script>
+                    document.write(new Date().getFullYear());
+                </script> TimeEgo. All Rights Reserved</pre>
+            </div>
+        </footer>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const menuToggle = document.querySelector('.menu-toggle');
+                const mainNav = document.querySelector('.main-nav');
+                
+                if (menuToggle && mainNav) {
+                    menuToggle.addEventListener('click', () => {
+                        mainNav.classList.toggle('active');
+                        //   menuToggle.querySelector('i').classList.toggle('fa-bars');
+                        if (mainNav.classList.contains('active')) {
+                            menuToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" fill="currentColor" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
+                        } else {
+                            menuToggle.innerHTML = `<svg class="h-6 w-6" fill="none" width="30px" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>`;
+                        }
+                    });
+                    
+                    // Close menu when a nav link is clicked (for smooth scrolling)
+                    mainNav.querySelectorAll('a').forEach(link => {
+                        link.addEventListener('click', () => {
+                            if (mainNav.classList.contains('active')) {
+                                mainNav.classList.remove('active');
+                                menuToggle.innerHTML = `<svg class="h-6 w-6" fill="none" width="30px" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>`;
+                            }
+                        });
+                    });
+                    
+                }
+                
+                
+            });
+            
+            //for network testing 
+            /*
+            if (!navigator.onLine) {
+                document.body.innerHTML = `<br><br><br><br><br><br>
+                <p style="margin:0 50px;">Connection problem, Click anywhere on this page to Try again</p>`
+                document.title = "Network Error"
+                document.addEventListener('click', () => {
+                    window.location.reload()
+                })
+            }*/
+            
+            // for cookie attestation 
+            const cookieBox = document.querySelector("footer .wrapper"),
+                cookieButtons = document.querySelectorAll(".cookie-button");
+            const executeCodes = () => {
+                //if cookie contains codinglab it will be returned and below of this code will not run
+                if (document.cookie.includes("TimeEgo")) return;
+                cookieBox.classList.add("show");
+                
+                cookieButtons.forEach((button) => {
+                    button.addEventListener("click", () => {
+                        cookieBox.classList.remove("show");
+                        
+                        //if button has acceptBtn id
+                        if (button.id == "acceptBtn") {
+                            //set cookies for 1 month. 60 = 1 min, 60 = 1 hours, 24 = 1 day, 30 = 30 days
+                            document.cookie = "cookieBy= TimeEgo; max-age=" + 60 * 60 * 24 * 7;
+                        }
+                    });
+                });
+            };
+            executeCodes()
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                const backgroundContainer = document.querySelector('.background-container');
+                const numberOfCircles = 10; // You can adjust this number
+                
+                for (let i = 0; i < numberOfCircles; i++) {
+                    const circle = document.createElement('div');
+                    circle.classList.add('circle');
+                    
+                    // Random size for each circle
+                    const size = Math.random() * 250 + 150; // Circles between 150px and 400px
+                    circle.style.width = `${size}px`;
+                    circle.style.height = `${size}px`;
+                    
+                    // Random color in blue/purple range (HSL for easy manipulation)
+                    const hue = Math.floor(Math.random() * 60) + 240; // Hues from blue (240) to purple (300)
+                    const saturation = Math.floor(Math.random() * 20) + 80; // 80-100% saturation
+                    const lightness = Math.floor(Math.random() * 15) + 60; // 60-75% lightness
+                    circle.style.backgroundColor = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.7)`;
+                    
+                    // Random starting position within the viewport
+                    circle.style.top = `${Math.random() * 100}vh`;
+                    circle.style.left = `${Math.random() * 100}vw`;
+                    
+                    // Stagger animation delays for a less uniform look
+                    circle.style.animationDelay = `-${Math.random() * 5}s`;
+                    
+                    backgroundContainer.appendChild(circle);
+                }
+            });
+        </script>
+</body>
+
+</html>
